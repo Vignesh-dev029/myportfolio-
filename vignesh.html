@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P. Vignesh | Full Stack Developer</title>
+    <link rel="icon" href="profile.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#020617',
+                        blue: {
+                            500: '#3B82F6',
+                            400: '#60A5FA',
+                            600: '#2563EB',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #020617; color: #fff; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #60A5FA; }
+
+        /* Glass Card */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05);
+            transform: translateY(-4px);
+        }
+
+        /* Glow Effects */
+        .blue-glow { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1); }
+        .blue-glow-sm { box-shadow: 0 0 10px rgba(59, 130, 246, 0.2), 0 0 20px rgba(59, 130, 246, 0.05); }
+        .blue-glow-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3); }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #60A5FA, #3B82F6, #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-2 {
+            background: linear-gradient(135deg, #3B82F6, #60A5FA, #93C5FD);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Typing Cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: #3B82F6;
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Floating Orbs */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: floatOrb 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes floatOrb {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-30px) translateX(20px) scale(1.05); }
+            50% { transform: translateY(-15px) translateX(-15px) scale(0.95); }
+            75% { transform: translateY(-25px) translateX(10px) scale(1.02); }
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Skill Bar Animation */
+        .skill-fill {
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Profile Image Glow Ring */
+        .profile-ring {
+            position: relative;
+            display: inline-block;
+        }
+        .profile-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #60A5FA, #818CF8, #3B82F6);
+            background-size: 300% 300%;
+            animation: rotateGlow 4s linear infinite;
+            z-index: -1;
+        }
+        .profile-ring::after {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(96,165,250,0.1));
+            filter: blur(15px);
+            z-index: -2;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        @keyframes rotateGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* Nav Active */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Button Glow */
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            background: rgba(59, 130, 246, 0.05);
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3B82F6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Tech Badge */
+        .tech-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            transition: all 0.3s ease;
+        }
+        .tech-badge:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Section Heading Underline */
+        .section-heading::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu.open { transform: translateX(0); }
+
+        /* Toast */
+        .toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Timeline */
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #3B82F6, rgba(59,130,246,0.1));
+        }
+        @media (min-width: 768px) {
+            .timeline-line { left: 50%; transform: translateX(-50%); }
+        }
+        .timeline-dot {
+            width: 14px;
+            height: 14px;
+            background: #3B82F6;
+            border: 2px solid #60A5FA;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(59,130,246,0.4);
+            z-index: 2;
+        }
+
+        /* Gradient border animation */
+        .gradient-border {
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, #3B82F6, #60A5FA, #818CF8, #3B82F6);
+            background-size: 300% 300%;
+            animation: rotateGlow 4s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Stagger animations */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        /* Input focus */
+        .form-input:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="font-inter">
+
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center font-poppins font-bold text-sm group-hover:shadow-lg group-hover:shadow-blue-500/30 transition-all duration-300">
+                        PV
+                    </div>
+                    <span class="font-poppins font-semibold text-lg hidden sm:block">Vignesh</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="#home" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#skills" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Skills</a>
+                    <a href="#projects" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#education" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Education</a>
+                    <a href="#certifications" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Certifications</a>
+                    <a href="#experience" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Experience</a>
+                    <a href="#achievements" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Achievements</a>
+                    <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-toggle" class="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors">
+                    <div class="flex flex-col gap-1.5" id="hamburger-icon">
+                        <span class="block w-6 h-0.5 bg-white transition-all duration-300 origin-center" id="bar1"></span>
+                        <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
+                        <span class="block w-4 h-0.5 bg-white transition-all duration-300 origin-center" id="bar3"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-72 bg-slate-950/95 backdrop-blur-xl border-l border-white/5 z-50 lg:hidden">
+            <div class="pt-20 px-6">
+                <div class="flex flex-col gap-1">
+                    <a href="#home" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Home</a>
+                    <a href="#about" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">About</a>
+                    <a href="#skills" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Skills</a>
+                    <a href="#projects" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Projects</a>
+                    <a href="#education" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Education</a>
+                    <a href="#certifications" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Certifications</a>
+                    <a href="#experience" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Experience</a>
+                    <a href="#achievements" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Achievements</a>
+                    <a href="#contact" class="mobile-nav-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <!-- Floating Orbs -->
+        <div class="floating-orb w-72 h-72 bg-blue-500 top-20 -left-36" style="animation-delay: 0s;"></div>
+        <div class="floating-orb w-96 h-96 bg-blue-600 -bottom-48 -right-48" style="animation-delay: 3s;"></div>
+        <div class="floating-orb w-48 h-48 bg-indigo-500 top-1/3 right-1/4" style="animation-delay: 5s;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                <!-- Left Content -->
+                <div class="flex-1 text-center lg:text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 reveal">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                        <span class="text-blue-400 text-sm font-medium">Available for opportunities</span>
+                    </div>
+
+                    <h1 class="font-poppins text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 reveal stagger-1">
+                        Hi, I'm<br>
+                        <span class="gradient-text">P. Vignesh</span>
+                    </h1>
+
+                    <div class="text-xl sm:text-2xl md:text-3xl font-poppins font-semibold text-slate-300 mb-6 reveal stagger-2">
+                        I'm a <span id="typing-text" class="text-blue-400 blue-glow-text"></span><span class="typing-cursor"></span>
+                    </div>
+
+                    <p class="text-slate-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed reveal stagger-3">
+                        Building modern and scalable web applications using React, Angular, Java, Spring Boot, Node.js, and MongoDB.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start mb-8 reveal stagger-4">
+                        <a href="#" class="btn-primary px-8 py-3.5 rounded-xl font-semibold text-white inline-flex items-center gap-2">
+                            <span class="iconify" data-icon="mdi:download" data-width="20"></span>
+                            Download Resume
+                        </a>
+                        <a href="#contact" class="btn-outline px-8 py-3.5 rounded-xl font-semibold text-blue-400 inline-flex items-center gap-2">
+                            <span class="iconify" data-icon="mdi:hand-wave" data-width="20"></span>
+                            Hire Me
+                        </a>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-3 justify-center lg:justify-start reveal stagger-5">
+                        <a href="https://github.com/Vignesh-dev029" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500/50 transition-all" title="GitHub">
+                            <span class="iconify" data-icon="mdi:github" data-width="22"></span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/p-vignesh-174871353" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500/50 transition-all" title="LinkedIn">
+                            <span class="iconify" data-icon="mdi:linkedin" data-width="22"></span>
+                        </a>
+                        <a href="[ADD_LEETCODE_LINK]" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500/50 transition-all" title="LeetCode">
+                            <span class="iconify" data-icon="simple-icons:leetcode" data-width="20"></span>
+                        </a>
+                        <a href="[ADD_HACKERRANK_LINK]" target="_blank" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500/50 transition-all" title="HackerRank">
+                            <span class="iconify" data-icon="simple-icons:hackerrank" data-width="20"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right - Profile Image -->
+                <div class="flex-shrink-0 order-1 lg:order-2 reveal-scale">
+                    <div class="profile-ring">
+                        <div class="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-2 border-slate-800 bg-slate-900">
+                            <img src="profile.jpeg" alt="P. Vignesh" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#about" class="flex flex-col items-center gap-2 text-slate-500 hover:text-blue-400 transition-colors">
+                <span class="text-xs">Scroll Down</span>
+                <span class="iconify" data-icon="mdi:chevron-double-down" data-width="20"></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <section id="about" class="relative py-24 overflow-hidden">
+        <div class="floating-orb w-64 h-64 bg-blue-600 -top-32 -right-32" style="animation-delay: 2s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">About <span class="gradient-text">Me</span></h2>
+                <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Get to know more about me, my journey, and what drives me.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left - Image / Visual -->
+                <div class="reveal-left">
+                    <div class="relative">
+                        <div class="glass-card p-6 rounded-2xl">
+                            <div class="rounded-xl overflow-hidden aspect-video">
+                                <img src="vicky.jpeg" alt="Developer Workspace" class="w-full h-full object-cover" />
+                            </div>
+                        </div>
+                        <!-- Floating Stats Cards -->
+                        <div class="absolute -bottom-6 -left-4 glass-card px-4 py-3 rounded-xl blue-glow-sm">
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                    <span class="iconify text-blue-400" data-icon="mdi:school" data-width="20"></span>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-400">CGPA</p>
+                                    <p class="font-poppins font-bold text-white">8.9</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-6 -right-4 glass-card px-4 py-3 rounded-xl blue-glow-sm">
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                    <span class="iconify text-blue-400" data-icon="mdi:calendar" data-width="20"></span>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-400">Batch</p>
+                                    <p class="font-poppins font-bold text-white">2023–27</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right - Content -->
+                <div class="reveal-right">
+                    <h3 class="font-poppins text-2xl font-bold mb-4">P. Vignesh</h3>
+                    <div class="space-y-4 text-slate-400 leading-relaxed">
+                        <p>I am a final-year <span class="text-blue-400 font-medium">B.E Computer Science and Engineering</span> student at <span class="text-white font-medium">VV College of Engineering</span>, Thisaiyanvilai, Tirunelveli. Graduating in <span class="text-blue-400 font-medium">2027</span> with a CGPA of <span class="text-blue-400 font-medium">8.9</span>.</p>
+                        <p>I chose Computer Science Engineering because of my strong interest in technology and software development. My goal is to become a <span class="text-white font-medium">Full Stack Developer</span> and <span class="text-white font-medium">Java Developer</span>. I enjoy building web applications using React, Angular, Java, Spring Boot, Node.js, and MongoDB.</p>
+                        <p>I am a <span class="text-blue-400 font-medium">quick learner</span>, <span class="text-blue-400 font-medium">problem solver</span>, <span class="text-blue-400 font-medium">team player</span>, and <span class="text-blue-400 font-medium">self-motivated</span> student.</p>
+                    </div>
+
+                    <!-- Hobbies -->
+                    <div class="mt-8">
+                        <h4 class="font-poppins font-semibold text-white mb-3">Hobbies</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tech-badge px-4 py-2 rounded-full text-sm text-blue-300 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:chess-knight" data-width="16"></span> Chess
+                            </span>
+                            <span class="tech-badge px-4 py-2 rounded-full text-sm text-blue-300 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:rocket-launch" data-width="16"></span> Learning New Technologies
+                            </span>
+                            <span class="tech-badge px-4 py-2 rounded-full text-sm text-blue-300 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:cricket" data-width="16"></span> Watching Cricket
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Info -->
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="glass-card p-4 rounded-xl text-center">
+                            <p class="text-2xl font-poppins font-bold gradient-text">8.9</p>
+                            <p class="text-xs text-slate-400 mt-1">CGPA</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl text-center">
+                            <p class="text-2xl font-poppins font-bold gradient-text">4+</p>
+                            <p class="text-xs text-slate-400 mt-1">Projects</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl text-center">
+                            <p class="text-2xl font-poppins font-bold gradient-text">2</p>
+                            <p class="text-xs text-slate-400 mt-1">Internships</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl text-center">
+                            <p class="text-2xl font-poppins font-bold gradient-text">7+</p>
+                            <p class="text-xs text-slate-400 mt-1">Certifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SKILLS SECTION ===================== -->
+    <section id="skills" class="relative py-24 overflow-hidden">
+        <div class="floating-orb w-80 h-80 bg-indigo-600 -bottom-40 -left-40" style="animation-delay: 1s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">My <span class="gradient-text">Skills</span></h2>
+                <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Technologies and tools I work with to build amazing applications.</p>
+            </div>
+
+            <!-- Skill Categories -->
+            <div class="space-y-12">
+                <!-- Programming Languages -->
+                <div class="reveal">
+                    <h3 class="font-poppins text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                            <span class="iconify text-blue-400" data-icon="mdi:code-braces" data-width="22"></span>
+                        </span>
+                        Programming Languages
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-orange-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:language-java" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Java</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-yellow-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:language-python" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Python</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-yellow-300 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:language-javascript" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">JavaScript</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div class="reveal stagger-1">
+                    <h3 class="font-poppins text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                            <span class="iconify text-blue-400" data-icon="mdi:monitor-dashboard" data-width="22"></span>
+                        </span>
+                        Frontend
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-orange-500 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:language-html5" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">HTML5</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-blue-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:language-css3" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">CSS3</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-purple-500 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:bootstrap" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Bootstrap</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-cyan-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:tailwind" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Tailwind CSS</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-cyan-300 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:react" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">React.js</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-red-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:angular" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Angular</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="reveal stagger-2">
+                    <h3 class="font-poppins text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                            <span class="iconify text-blue-400" data-icon="mdi:server" data-width="22"></span>
+                        </span>
+                        Backend
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-orange-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:language-java" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Java</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-green-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:leaf" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Spring Boot</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-green-500 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:nodejs" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Node.js</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-gray-300 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="simple-icons:express" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Express.js</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="reveal stagger-3">
+                    <h3 class="font-poppins text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                            <span class="iconify text-blue-400" data-icon="mdi:database" data-width="22"></span>
+                        </span>
+                        Database
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-green-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="simple-icons:mongodb" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">MongoDB</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-blue-300 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:database" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">MySQL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="reveal stagger-4">
+                    <h3 class="font-poppins text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                            <span class="iconify text-blue-400" data-icon="mdi:wrench" data-width="22"></span>
+                        </span>
+                        Tools
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-orange-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:git" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Git</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-white mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:github" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">GitHub</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-blue-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:microsoft-visual-studio-code" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">VS Code</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-orange-500 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="simple-icons:postman" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Postman</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Technologies -->
+                <div class="reveal stagger-5">
+                    <h3 class="font-poppins text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                            <span class="iconify text-blue-400" data-icon="mdi:cloud" data-width="22"></span>
+                        </span>
+                        Other Technologies
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-orange-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:aws" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">AWS</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-blue-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:docker" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Docker</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-yellow-400 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:linux" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Linux</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl text-center group cursor-pointer">
+                            <span class="iconify text-blue-300 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" data-icon="mdi:chart-bar" data-width="36"></span>
+                            <p class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">IBM Cognos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PROJECTS SECTION ===================== -->
+    <section id="projects" class="relative py-24 overflow-hidden">
+        <div class="floating-orb w-72 h-72 bg-blue-500 top-1/3 -right-36" style="animation-delay: 4s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">My <span class="gradient-text">Projects</span></h2>
+                <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Showcasing my best work — from full-stack applications to responsive frontends.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal stagger-1">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="payflow.png" alt="PayFlow" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">MERN Stack</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-poppins text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">PayFlow – Credit Card Processing System</h3>
+                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">A MERN stack application for managing digital payments, tracking transactions, and simulating secure credit card processing workflows with a modern dashboard.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">MongoDB</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">Express.js</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">React.js</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">Node.js</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="[ADD_GITHUB_LINK]" target="_blank" class="btn-outline px-4 py-2 rounded-lg text-sm font-medium text-blue-400 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:github" data-width="18"></span> GitHub
+                            </a>
+                            <a href="[ADD_LIVE_DEMO_LINK]" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium text-white inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:open-in-new" data-width="18"></span> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal stagger-2">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="clg.png" alt="College Department" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">Frontend</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-poppins text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">College Department Website</h3>
+                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">It shows the details about the college department including faculty information, courses, and events.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">HTML</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">CSS</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">JavaScript</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="[ADD_GITHUB_LINK]" target="_blank" class="btn-outline px-4 py-2 rounded-lg text-sm font-medium text-blue-400 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:github" data-width="18"></span> GitHub
+                            </a>
+                            <a href="[ADD_LIVE_DEMO_LINK]" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium text-white inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:open-in-new" data-width="18"></span> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal stagger-3">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="mens.png" alt="Men's Clothing Store" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">Frontend</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-poppins text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">Men's Clothing Store Website</h3>
+                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">A modern e-commerce website showcasing men's fashion products with attractive UI and responsive design.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">HTML</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">CSS</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">JavaScript</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="[ADD_GITHUB_LINK]" target="_blank" class="btn-outline px-4 py-2 rounded-lg text-sm font-medium text-blue-400 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:github" data-width="18"></span> GitHub
+                            </a>
+                            <a href="[ADD_LIVE_DEMO_LINK]" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium text-white inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:open-in-new" data-width="18"></span> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal stagger-4">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="sim.png" alt="SIM Activation Portal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">Spring Boot</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-poppins text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">SIM Activation Portal</h3>
+                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">A telecom management portal for SIM activation, customer verification, and service provisioning using Spring Boot and REST APIs.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">Java</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">Spring Boot</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">REST APIs</span>
+                            <span class="tech-badge px-2.5 py-1 rounded-md text-xs text-blue-300">MySQL</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="[ADD_GITHUB_LINK]" target="_blank" class="btn-outline px-4 py-2 rounded-lg text-sm font-medium text-blue-400 inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:github" data-width="18"></span> GitHub
+                            </a>
+                            <a href="[ADD_LIVE_DEMO_LINK]" target="_blank" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium text-white inline-flex items-center gap-2">
+                                <span class="iconify" data-icon="mdi:open-in-new" data-width="18"></span> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EDUCATION SECTION ===================== -->
+    <section id="education" class="relative py-24 overflow-hidden">
+        <div class="floating-orb w-64 h-64 bg-blue-600 top-20 -left-32" style="animation-delay: 6s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">My <span class="gradient-text">Education</span></h2>
+                <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">My academic journey that shaped my knowledge and skills.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- College -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl reveal-left relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center blue-glow-sm">
+                            <span class="iconify text-blue-400" data-icon="mdi:school" data-width="28"></span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-poppins text-xl font-bold text-white">VV College of Engineering</h3>
+                                    <p class="text-blue-400 font-medium mt-1">B.E Computer Science and Engineering</p>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/25">2023 – 2027</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mt-2">Thisaiyanvilai, Tirunelveli</p>
+                            <div class="mt-4 flex items-center gap-3">
+                                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                                    <span class="iconify text-blue-400" data-icon="mdi:star" data-width="16"></span>
+                                    <span class="text-sm font-semibold text-blue-300">CGPA: 8.9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl reveal-right relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center blue-glow-sm">
+                            <span class="iconify text-blue-400" data-icon="mdi:book-education" data-width="28"></span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-poppins text-xl font-bold text-white">Sri Rama Krishna Higher Secondary School</h3>
+                                    <p class="text-blue-400 font-medium mt-1">Higher Secondary & Secondary Education</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex flex-wrap items-center gap-3">
+                                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                                    <span class="iconify text-blue-400" data-icon="mdi:school" data-width="16"></span>
+                                    <span class="text-sm font-semibold text-blue-300">HSC: 91%</span>
+                                </div>
+                                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                                    <span class="iconify text-blue-400" data-icon="mdi:school" data-width="16"></span>
+                                    <span class="text-sm font-semibold text-blue-300">SSLC: 90%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CERTIFICATIONS SECTION ===================== -->
+        <section id="certifications" class="relative py-24 overflow-hidden">
+            <div class="floating-orb w-80 h-80 bg-indigo-600 -bottom-40 right-20" style="animation-delay: 3s;"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">My <span class="gradient-text">Certifications</span></h2>
+                    <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Industry-recognized certifications that validate my skills.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cert 1 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-1">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-yellow-400" data-icon="mdi:certificate" data-width="24"></span>
+                        </div>
+                        <a href="nptel.pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            NPTEL DBMS Elite
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">NPTEL · IIT Certification</p>
+                    </div>
+
+                    <!-- Cert 2 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-2">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-green-400" data-icon="mdi:code-braces" data-width="24"></span>
+                        </div>
+                        <a href="mern.pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            Full Stack Development with MERN Stack
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">MERN Stack Certification</p>
+                    </div>
+
+                    <!-- Cert 3 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:chart-bar" data-width="24"></span>
+                        </div>
+                        <a href="ibm.pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            IBM Cognos Analytics
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">IBM Certification</p>
+                    </div>
+
+                    <!-- Cert 4 - NEW -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:office-building" data-width="24"></span>
+                        </div>
+                        <a href="IBM intern.pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            IBM Cognos Analytics Virtual Internship
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">IBM · Virtual Internship</p>
+                    </div>
+
+                    <!-- Cert 5 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-5">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-purple-400" data-icon="mdi:brain" data-width="24"></span>
+                        </div>
+                        <a href="nlp.pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            NLP Certification
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">Pantech E Learning Pvt Ltd, Chennai</p>
+                    </div>
+
+                    <!-- Cert 6 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-green-400" data-icon="mdi:api" data-width="24"></span>
+                        </div>
+                        <a href="spring.pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            Spring REST APIs
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">Infosys Certification</p>
+                    </div>
+
+                    <!-- Cert 7 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-1">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-cyan-400" data-icon="mdi:monitor" data-width="24"></span>
+                        </div>
+                        <a href="frontend .pdf" target="_blank" class="font-poppins font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                            Frontend Development Workshop
+                            <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                        </a>
+                        <p class="text-slate-500 text-sm mt-1">Mavipizon Technologies</p>
+                    </div>
+
+                    <!-- Cert 8 -->
+                    <div class="glass-card p-6 rounded-2xl group reveal stagger-2 sm:col-span-2 lg:col-span-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-orange-400" data-icon="mdi:trophy" data-width="24"></span>
+                            </div>
+                            <div>
+                                <a href="sympo.pdf" target="_blank" class="font-poppins font-semibold text-white group-hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 hover:underline underline-offset-4">
+                                    Symposium Participation Certificates
+                                    <span class="iconify text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-icon="mdi:open-in-new" data-width="14"></span>
+                                </a>
+                                <p class="text-slate-500 text-sm">Multiple technical symposiums and events</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            <!-- ===================== EXPERIENCE SECTION ===================== -->
+            <section id="experience" class="relative py-24 overflow-hidden">
+                <div class="floating-orb w-64 h-64 bg-blue-500 -top-32 left-1/4" style="animation-delay: 7s;"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-16">
+                        <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">My <span class="gradient-text">Experience</span></h2>
+                        <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Professional internships and real-world work experience.</p>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto space-y-8">
+                        <!-- Experience 1 -->
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl reveal-left relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-blue-600 rounded-l-2xl"></div>
+                            <div class="flex items-start gap-4 pl-4">
+                                <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center blue-glow-sm">
+                                    <span class="iconify text-blue-400" data-icon="mdi:briefcase" data-width="28"></span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-wrap items-start justify-between gap-2">
+                                        <div>
+                                            <h3 class="font-poppins text-xl font-bold text-white">TVK Technologies</h3>
+                                            <p class="text-blue-400 font-medium mt-1">Software Development Intern</p>
+                                        </div>
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/25">1 Month</span>
+                                    </div>
+                                    <p class="text-slate-400 text-sm mt-3 leading-relaxed">Worked on enterprise-level software development using Java and Angular, gaining hands-on experience with industry best practices and agile methodologies.</p>
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="tech-badge px-3 py-1 rounded-full text-xs text-blue-300">Java</span>
+                                        <span class="tech-badge px-3 py-1 rounded-full text-xs text-blue-300">Angular</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience 2 -->
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl reveal-right relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-blue-500 rounded-l-2xl"></div>
+                            <div class="flex items-start gap-4 pl-4">
+                                <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center blue-glow-sm">
+                                    <span class="iconify text-blue-400" data-icon="mdi:briefcase" data-width="28"></span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-wrap items-start justify-between gap-2">
+                                        <div>
+                                            <h3 class="font-poppins text-xl font-bold text-white">Mavipizon Technologies</h3>
+                                            <p class="text-blue-400 font-medium mt-1">MERN Stack Intern</p>
+                                        </div>
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/25">2 Weeks</span>
+                                    </div>
+                                    <p class="text-slate-400 text-sm mt-3 leading-relaxed">Developed full-stack web applications using the MERN stack, implementing RESTful APIs and building responsive user interfaces with modern frontend frameworks.</p>
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="tech-badge px-3 py-1 rounded-full text-xs text-blue-300">React.js</span>
+                                        <span class="tech-badge px-3 py-1 rounded-full text-xs text-blue-300">Node.js</span>
+                                        <span class="tech-badge px-3 py-1 rounded-full text-xs text-blue-300">Express.js</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== ACHIEVEMENTS SECTION ===================== -->
+            <section id="achievements" class="relative py-24 overflow-hidden">
+                <div class="floating-orb w-72 h-72 bg-blue-600 bottom-20 -right-36" style="animation-delay: 2s;"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-16">
+                        <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">My <span class="gradient-text">Achievements</span></h2>
+                        <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Milestones and accomplishments I'm proud of.</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <div class="glass-card p-6 rounded-2xl group reveal stagger-1 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-yellow-400" data-icon="mdi:star-circle" data-width="28"></span>
+                            </div>
+                            <h3 class="font-poppins font-semibold text-white mb-1">CGPA 8.9</h3>
+                            <p class="text-slate-500 text-sm">Consistent academic excellence</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl group reveal stagger-2 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-green-400" data-icon="mdi:certificate-multiple" data-width="28"></span>
+                            </div>
+                            <h3 class="font-poppins font-semibold text-white mb-1">Multiple Industry Certifications</h3>
+                            <p class="text-slate-500 text-sm">NPTEL, IBM, Infosys & more</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl group reveal stagger-3 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-cyan-400" data-icon="mdi:react" data-width="28"></span>
+                            </div>
+                            <h3 class="font-poppins font-semibold text-white mb-1">MERN Stack Developer</h3>
+                            <p class="text-slate-500 text-sm">Full-stack proficiency</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl group reveal stagger-1 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-green-400" data-icon="mdi:api" data-width="28"></span>
+                            </div>
+                            <h3 class="font-poppins font-semibold text-white mb-1">Spring Boot REST API Developer</h3>
+                            <p class="text-slate-500 text-sm">Backend API expertise</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl group reveal stagger-2 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-purple-400" data-icon="mdi:trophy" data-width="28"></span>
+                            </div>
+                            <h3 class="font-poppins font-semibold text-white mb-1">Technical Symposium Participant</h3>
+                            <p class="text-slate-500 text-sm">Active in tech events</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl group reveal stagger-3 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <span class="iconify text-orange-400" data-icon="mdi:tools" data-width="28"></span>
+                            </div>
+                            <h3 class="font-poppins font-semibold text-white mb-1">Workshop & Internship Certificates</h3>
+                            <p class="text-slate-500 text-sm">Hands-on industry experience</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== GITHUB STATS SECTION ===================== -->
+        <section id="github-stats" class="relative py-24 overflow-hidden">
+            <div class="floating-orb w-64 h-64 bg-blue-500 -top-32 left-1/2" style="animation-delay: 4s;"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">GitHub <span class="gradient-text">Stats</span></h2>
+                    <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">My coding activity and contribution statistics.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Contribution Graph -->
+                    <div class="glass-card p-6 rounded-2xl reveal stagger-1">
+                        <h3 class="font-poppins font-semibold text-white mb-4 flex items-center gap-2">
+                            <span class="iconify text-blue-400" data-icon="mdi:chart-timeline-variant" data-width="20"></span>
+                            Contribution Graph
+                        </h3>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://github-readme-activity-graph.vercel.app/graph?username=Vignesh-dev029&bg_color=0d1117&color=3b82f6&line=3b82f6&point=60a5fa&area=true&hide_border=true" alt="GitHub Contribution Graph" class="w-full" />
+                        </div>
+                    </div>
+
+                    <!-- Streak Stats -->
+                    <div class="glass-card p-6 rounded-2xl reveal stagger-2">
+                        <h3 class="font-poppins font-semibold text-white mb-4 flex items-center gap-2">
+                            <span class="iconify text-blue-400" data-icon="mdi:fire" data-width="20"></span>
+                            Streak Stats
+                        </h3>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://github-readme-streak-stats.herokuapp.com/?user=Vignesh-dev029&theme=dark&hide_border=true&background=0d1117&stroke=1f2937&ring=3b82f6&fire=60a5fa&currStreakLabel=3b82f6" alt="GitHub Streak Stats" class="w-full" />
+                        </div>
+                    </div>
+
+                    <!-- Stats Card -->
+                    <div class="glass-card p-6 rounded-2xl reveal stagger-3">
+                        <h3 class="font-poppins font-semibold text-white mb-4 flex items-center gap-2">
+                            <span class="iconify text-blue-400" data-icon="mdi:chart-bar" data-width="20"></span>
+                            Repository Statistics
+                        </h3>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://github-readme-stats.vercel.app/api?username=Vignesh-dev029&show_icons=true&theme=dark&hide_border=true&bg_color=0d1117&title_color=3b82f6&icon_color=60a5fa&text_color=94a3b8" alt="GitHub Stats" class="w-full" />
+                        </div>
+                    </div>
+
+                    <!-- Most Used Languages -->
+                    <div class="glass-card p-6 rounded-2xl reveal stagger-4">
+                        <h3 class="font-poppins font-semibold text-white mb-4 flex items-center gap-2">
+                            <span class="iconify text-blue-400" data-icon="mdi:code-tags" data-width="20"></span>
+                            Most Used Languages
+                        </h3>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Vignesh-dev029&layout=compact&theme=dark&hide_border=true&bg_color=0d1117&title_color=3b82f6&text_color=94a3b8" alt="Most Used Languages" class="w-full" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- ===================== CONTACT SECTION ===================== -->
+    <section id="contact" class="relative py-24 overflow-hidden">
+        <div class="floating-orb w-80 h-80 bg-blue-600 -bottom-40 -left-40" style="animation-delay: 5s;"></div>
+        <div class="floating-orb w-48 h-48 bg-indigo-500 top-20 right-10" style="animation-delay: 2s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold section-heading reveal">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="text-slate-400 mt-6 max-w-2xl mx-auto reveal stagger-1">Have a project in mind or want to collaborate? Feel free to reach out!</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-10 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div class="lg:col-span-2 space-y-6 reveal-left">
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:email-outline" data-width="24"></span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-medium">Email</p>
+                            <a href="mailto:vignesh.029@gmail.com" class="text-slate-300 hover:text-blue-400 transition-colors text-sm break-all">vignesh.029@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:phone-outline" data-width="24"></span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-medium">Phone</p>
+                            <p class="text-slate-300 text-sm">9095152704</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:map-marker-outline" data-width="24"></span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-medium">Location</p>
+                            <p class="text-slate-300 text-sm">Tirunelveli, Tamil Nadu</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:github" data-width="24"></span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-medium">GitHub</p>
+                            <a href="https://github.com/Vignesh-dev029" target="_blank" class="text-slate-300 hover:text-blue-400 transition-colors text-sm">View Profile</a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <span class="iconify text-blue-400" data-icon="mdi:linkedin" data-width="24"></span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-medium">LinkedIn</p>
+                            <a href="https://www.linkedin.com/in/p-vignesh-174871353" target="_blank" class="text-slate-300 hover:text-blue-400 transition-colors text-sm">Connect</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-3 reveal-right">
+                    <form id="contact-form" class="glass-card p-8 rounded-2xl space-y-5">
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Your Name</label>
+                                <input type="text" placeholder="Vignesh" required class="form-input w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-slate-600 transition-all duration-300 text-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Your Email</label>
+                                <input type="email" placeholder="vignesh@example.com" required class="form-input w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-slate-600 transition-all duration-300 text-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Subject</label>
+                            <input type="text" placeholder="Project Discussion" required class="form-input w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-slate-600 transition-all duration-300 text-sm" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Message</label>
+                            <textarea rows="5" placeholder="Tell me about your project..." required class="form-input w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-slate-600 transition-all duration-300 text-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-3.5 rounded-xl font-semibold text-white inline-flex items-center justify-center gap-2 text-sm">
+                            <span class="iconify" data-icon="mdi:send" data-width="18"></span>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="relative border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <h3 class="font-poppins font-bold text-lg gradient-text">P. Vignesh</h3>
+                    <p class="text-slate-500 text-sm mt-1">Full Stack Developer</p>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="https://github.com/Vignesh-dev029" target="_blank" class="w-10 h-10 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                        <span class="iconify" data-icon="mdi:github" data-width="20"></span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/p-vignesh-174871353" target="_blank" class="w-10 h-10 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                        <span class="iconify" data-icon="mdi:linkedin" data-width="20"></span>
+                    </a>
+                    <a href="[ADD_LEETCODE_LINK]" target="_blank" class="w-10 h-10 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                        <span class="iconify" data-icon="simple-icons:leetcode" data-width="18"></span>
+                    </a>
+                    <a href="[ADD_HACKERRANK_LINK]" target="_blank" class="w-10 h-10 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                        <span class="iconify" data-icon="simple-icons:hackerrank" data-width="18"></span>
+                    </a>
+                </div>
+
+                <p class="text-slate-600 text-xs">&copy; 2027 P. Vignesh. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-500/30 backdrop-blur-md flex items-center justify-center text-blue-400 hover:bg-blue-500/30 hover:text-white transition-all duration-300 z-50 opacity-0 translate-y-4 pointer-events-none">
+        <span class="iconify" data-icon="mdi:chevron-up" data-width="24"></span>
+    </button>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 z-50 glass-card px-6 py-3 rounded-xl flex items-center gap-3">
+        <span class="iconify text-green-400" data-icon="mdi:check-circle" data-width="20"></span>
+        <span id="toast-message" class="text-sm font-medium text-white">Message sent successfully!</span>
+    </div>
+
+    <!-- ===================== JAVASCRIPT ===================== -->
+    <script>
+        // ===== PARTICLES =====
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            const count = Math.min(80, Math.floor(window.innerWidth / 15));
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.06 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            drawConnections();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== TYPING EFFECT =====
+        const typingTexts = ['Full Stack Developer', 'React Developer', 'Angular Developer', 'Java Developer'];
+        let textIndex = 0, charIndex = 0, isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+
+        function typeEffect() {
+            const currentText = typingTexts[textIndex];
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let delay = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                delay = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % typingTexts.length;
+                delay = 500;
+            }
+
+            setTimeout(typeEffect, delay);
+        }
+        typeEffect();
+
+        // ===== NAVBAR =====
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 50) {
+                navbar.style.background = 'rgba(2, 6, 23, 0.85)';
+                navbar.style.backdropFilter = 'blur(20px)';
+                navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+            } else {
+                navbar.style.background = 'transparent';
+                navbar.style.backdropFilter = 'none';
+                navbar.style.borderBottom = 'none';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // ===== MOBILE MENU =====
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        let menuOpen = false;
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            mobileOverlay.classList.toggle('hidden', !menuOpen);
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+
+            if (menuOpen) {
+                bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+                bar2.style.opacity = '0';
+                bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+                bar3.style.width = '24px';
+            } else {
+                bar1.style.transform = 'none';
+                bar2.style.opacity = '1';
+                bar3.style.transform = 'none';
+                bar3.style.width = '16px';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (menuOpen) toggleMenu();
+            });
+        });
+
+        // ===== SCROLL REVEAL =====
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 100;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // ===== BACK TO TOP =====
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                backToTop.style.opacity = '1';
+                backToTop.style.transform = 'translateY(0)';
+                backToTop.style.pointerEvents = 'auto';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.transform = 'translateY(16px)';
+                backToTop.style.pointerEvents = 'none';
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== ACTIVE NAV LINK =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== CONTACT FORM =====
+        const contactForm = document.getElementById('contact-form');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        function showToast(message, isSuccess = true) {
+            toastMessage.textContent = message;
+            const icon = toast.querySelector('.iconify');
+            if (isSuccess) {
+                icon.setAttribute('data-icon', 'mdi:check-circle');
+                icon.style.color = '#4ade80';
+            } else {
+                icon.setAttribute('data-icon', 'mdi:alert-circle');
+                icon.style.color = '#f87171';
+            }
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="iconify animate-spin" data-icon="mdi:loading" data-width="18"></span> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                showToast('Message sent successfully! I\'ll get back to you soon.', true);
+                contactForm.reset();
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }, 1500);
+        });
+
+        // ===== SMOOTH SCROLL FOR ALL ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 70;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
